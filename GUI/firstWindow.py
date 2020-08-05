@@ -17,7 +17,7 @@ class firstWindow:
         self.window.geometry('1000x600')
         self.fondo = None
         self.img ="GUI/Images/Logo.png"
-        self._clock()
+        
         self.widges()
 
     def widges(self):
