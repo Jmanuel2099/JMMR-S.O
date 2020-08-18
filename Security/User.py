@@ -2,6 +2,7 @@
 class User:
 
     def __init__(self, user, password):
+        """self.rol = rol"""
         self.user = user
         self.password = password
         self.state = False
@@ -14,7 +15,7 @@ class User:
 
 
     def login(self, username, password):
-        users = [User("admin","12345"), User("invited","00000")]
+        users = [User( "admin","12345"), User( "invited","00000")]
 
         for i in range(len(users)):
             print(users[i])

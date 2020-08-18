@@ -49,23 +49,6 @@ class firstWindow:
             reloj['text'] = now
         self.window.after(1000, self.clock)
 
-    """def clock(self):
-        
-        while True:
-            now = datetime.now()
-            if now.minute < 10:
-                min = "0"+str(now.minute)
-            else:
-                min = str(now.minute)
-            if now.second < 10:
-                seg = "0"+str(now.second)
-            else:
-                seg = str(now.second)
-            hora = str(now.hour) + ":" + min + ":" + seg
-
-            self.reloj = tk.Label(text=hora, fg="white", background="black")
-            self.reloj.place(x=920, y=560)"""
-
 
     def startLoginAdmin(self):
         self.fondo.destroy()
@@ -100,29 +83,21 @@ class firstWindow:
         self.fondo.mainloop()
 
     def startLoginGuest(self):
-        pass
-
-
-    def turn_back(self):
         self.fondo.destroy()
-        self.lbusername.destroy()
-        self.lbPass.destroy()
-        self.entryusernamen.destroy()
-        self.entrypass.destroy()
+        self.lbEnter.destroy()
+        self.btnUser.destroy()
+        self.btnGuest.destroy()
 
-        self.img = "GUI/Images/Logo.png"
+        self.img = "GUI/Images/desktop.png"
         imgFondo = tk.PhotoImage(file=self.img)
         self.fondo = tk.Label(self.window, image=imgFondo)
         self.fondo.pack(side='top', fill='both', expand='yes')
-
-        lbEnter = tk.Label(self.window, text=" Enter as: ", fg="white", background="black")
-        lbEnter.place(x=475,y=420)
-
-        self.btnUser = tk.Button(self.window, text="   Admin   ", command=self.startLoginAdmin)
-        self.btnUser.place(x=425,y=450)
-
-        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.startLoginGuest)
-        self.btnGuest.place(x=515, y=450)
+        btnFileManager = tk.Button(self.window, text="FIle Manager")
+        btnFileManager.config(width=10)
+        btnFileManager.place(x=15, y=30)
+        btnchangeuser = tk.Button(self.window, text="Change User", command=self.turn_back)
+        btnchangeuser.config(width=10)
+        btnchangeuser.place(x=15, y=70)
         self.fondo.mainloop()
 
 
@@ -160,6 +135,9 @@ class firstWindow:
         btnFileManager= tk.Button(self.window, text="FIle Manager")
         btnFileManager.config(width=10)
         btnFileManager.place(x=15, y=50)
+        btnchangeuser = tk.Button(self.window, text= "Change User" ,command=self.changeUser)
+        btnchangeuser.config(width=10)
+        btnchangeuser.place(x=15, y=70)
         self.fondo.mainloop()
 
     def windowUsers(self):
@@ -194,4 +172,27 @@ class firstWindow:
         btndelete.config(width=10)
         btndelete.grid(row=3, column=2)
 
+    def turn_back(self):
+        self.fondo.destroy()
+        self.lbusername.destroy()
+        self.lbPass.destroy()
+        self.entryusernamen.destroy()
+        self.entrypass.destroy()
 
+        self.img = "GUI/Images/Logo.png"
+        imgFondo = tk.PhotoImage(file=self.img)
+        self.fondo = tk.Label(self.window, image=imgFondo)
+        self.fondo.pack(side='top', fill='both', expand='yes')
+
+        lbEnter = tk.Label(self.window, text=" Enter as: ", fg="white", background="black")
+        lbEnter.place(x=475,y=420)
+
+        self.btnUser = tk.Button(self.window, text="   Admin   ", command=self.startLoginAdmin)
+        self.btnUser.place(x=425,y=450)
+
+        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.startLoginGuest)
+        self.btnGuest.place(x=515, y=450)
+        self.fondo.mainloop()
+
+    def changeUser(self):
+        pass
