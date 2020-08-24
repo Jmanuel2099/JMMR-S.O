@@ -7,6 +7,7 @@ import tkinter as tk
 from tkinter import ttk
 import threading
 from Security.User import User
+from FileSystem.Folder import Folder
 
 class firstWindow:
 
@@ -30,7 +31,7 @@ class firstWindow:
 
         self.btnUser= tk.Button(self.window, text="   Admin   ", command= self.startLoginAdmin)
         self.btnUser.place(x=425,y=450)
-        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.startLoginGuest)
+        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.desktopGuest)
         self.btnGuest.place(x=515, y=450)
 
         self._clock()
@@ -79,10 +80,23 @@ class firstWindow:
         self.btnback = tk.Button(self.window, text=" Back ", command=self.turn_back)
         self.btnback.place(x=70, y=543)
 
-
         self.fondo.mainloop()
 
-    def startLoginGuest(self):
+    def makeLogin(self):
+        u = self.userName.get()
+        p = self.Pass.get()
+
+        if len(u) != 0 and len(p) != 0:
+            user= User(u, p)
+            if user.login(user.getUser(), user.getPassword()):
+                self.makedesktop()
+                print("login succesful")
+            else:
+                print("user or password not found")
+        else:
+            print("you must fill all the fields")
+
+    def desktopGuest(self):
         self.fondo.destroy()
         self.lbEnter.destroy()
         self.btnUser.destroy()
@@ -92,28 +106,24 @@ class firstWindow:
         imgFondo = tk.PhotoImage(file=self.img)
         self.fondo = tk.Label(self.window, image=imgFondo)
         self.fondo.pack(side='top', fill='both', expand='yes')
-        btnFileManager = tk.Button(self.window, text="FIle Manager")
+
+        """self.path= StringVar()
+        lbPath = tk.Label(self.window, text="Enter Path: ",fg="white", background="black")
+        lbPath.place(x=20, y=30)
+        self.pathSearch = tk.Entry(self.window, textvariable=self.path, width=80)
+        self.pathSearch.place(x=90,y=30)
+        btnFileManager = tk.Button(self.window, text="Search file", command= self.makeFileSystem)
         btnFileManager.config(width=10)
-        btnFileManager.place(x=15, y=30)
+        btnFileManager.place(x=600, y=30)"""
+
+        btnFileManager = tk.Button(self.window, text="Search file", command=self.makeFileSystem)
+        btnFileManager.config(width=10)
+        btnFileManager.place(x=20, y=30)
+
         btnchangeuser = tk.Button(self.window, text="Change User", command=self.turn_back)
         btnchangeuser.config(width=10)
-        btnchangeuser.place(x=15, y=70)
+        btnchangeuser.place(x=20, y=70)
         self.fondo.mainloop()
-
-
-    def makeLogin(self):
-        u = self.userName.get()
-        p = self.Pass.get()
-
-        if len(u) != 0 and len(p) != 0:
-            user= User("", "")
-            if User.login(user, u, p):
-                self.makedesktop()
-                print("login succesful")
-            else:
-                print("user or password not found")
-        else:
-            print("you must fill all the fields")
 
     def makedesktop(self):
         self.fondo.destroy()
@@ -132,12 +142,13 @@ class firstWindow:
         btnUsers = tk.Button(self.window, text= "Users", command= self.windowUsers)
         btnUsers.config(width=10)
         btnUsers.place(x=15, y=15)
-        btnFileManager= tk.Button(self.window, text="FIle Manager")
+        btnFileManager= tk.Button(self.window, text="FIle Manager", command=self.makeFileSystem)
         btnFileManager.config(width=10)
         btnFileManager.place(x=15, y=50)
-        btnchangeuser = tk.Button(self.window, text= "Change User" ,command=self.changeUser)
+        btnchangeuser = tk.Button(self.window, text= "Change User", command=self.changeUser)
         btnchangeuser.config(width=10)
-        btnchangeuser.place(x=15, y=70)
+        btnchangeuser.place(x=15, y=85)
+
         self.fondo.mainloop()
 
     def windowUsers(self):
@@ -172,6 +183,19 @@ class firstWindow:
         btndelete.config(width=10)
         btndelete.grid(row=3, column=2)
 
+    def makeFileSystem(self):
+        tk.Label(self.window, text="File System:", fg="white", background="black").place(x=230, y=30)
+        ruta = r'C:\Users\jmanu\Documents\Universidad\Sistemas Operativos'
+        f = Folder(ruta)
+        content = f.searchContent()
+        contador= 30
+        #print(content)
+        for i in content :
+            for j in i:
+                contador+=30
+                print(j)
+                tk.Label(self.window, text=j, fg="white", background="black").place(x=230, y=contador)
+
     def turn_back(self):
         self.fondo.destroy()
         self.lbusername.destroy()
@@ -190,7 +214,7 @@ class firstWindow:
         self.btnUser = tk.Button(self.window, text="   Admin   ", command=self.startLoginAdmin)
         self.btnUser.place(x=425,y=450)
 
-        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.startLoginGuest)
+        self.btnGuest = tk.Button(self.window, text="    Guest    ", command=self.desktopGuest)
         self.btnGuest.place(x=515, y=450)
         self.fondo.mainloop()
 
