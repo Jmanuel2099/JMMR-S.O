@@ -107,15 +107,6 @@ class firstWindow:
         self.fondo = tk.Label(self.window, image=imgFondo)
         self.fondo.pack(side='top', fill='both', expand='yes')
 
-        """self.path= StringVar()
-        lbPath = tk.Label(self.window, text="Enter Path: ",fg="white", background="black")
-        lbPath.place(x=20, y=30)
-        self.pathSearch = tk.Entry(self.window, textvariable=self.path, width=80)
-        self.pathSearch.place(x=90,y=30)
-        btnFileManager = tk.Button(self.window, text="Search file", command= self.makeFileSystem)
-        btnFileManager.config(width=10)
-        btnFileManager.place(x=600, y=30)"""
-
         btnFileManager = tk.Button(self.window, text="Search file", command=self.makeFileSystem)
         btnFileManager.config(width=10)
         btnFileManager.place(x=20, y=30)
@@ -184,17 +175,67 @@ class firstWindow:
         btndelete.grid(row=3, column=2)
 
     def makeFileSystem(self):
-        tk.Label(self.window, text="File System:", fg="white", background="black").place(x=230, y=30)
-        ruta = r'C:\Users\jmanu\Documents\Universidad\Sistemas Operativos'
-        f = Folder(ruta)
-        content = f.searchContent()
-        contador= 30
+        #windowFile = tk.Toplevel(self.window)
+        #windowFile.geometry('700x600')
+        #windowFile.title('Users')
+
+        #self.path = StringVar()
+        #lbPath = tk.Label(windowFile, text="Enter Path: ")
+        #lbPath.grid(row=2, column=2)
+        #self.pathSearch = tk.Entry(windowFile, textvariable=self.path, width=80)
+        #self.pathSearch.grid(row=2, column=3)
+        #btnFileManager = tk.Button(windowFile, text="Search file", command=self.searchFile)
+        #btnFileManager.config(width=10)
+        #btnFileManager.grid(row=2, column=4)
+
+        #print(self.searchFile)
+        self.path = StringVar()
+        lbPath = tk.Label(self.window, text="Enter Path: ", fg="white", background="black")
+        lbPath.place(x=120, y=30)
+        self.pathSearch = tk.Entry(self.window, textvariable=self.path, width=80)
+        self.pathSearch.place(x=200, y=30)
+        btnFileManager = tk.Button(self.window, text="Search file", command=self.searchFile)
+        btnFileManager.config(width=10)
+        btnFileManager.place(x=710, y=30)
+
+
+
+
+
+        #tk.Label(self.window, text="File System:", fg="white", background="black").place(x=230, y=30)
+        #ruta = r'C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos'
+        #f = Folder(ruta)
+        #content = f.searchContent()
+        #contador= 30
         #print(content)
-        for i in content :
-            for j in i:
-                contador+=30
-                print(j)
-                tk.Label(self.window, text=j, fg="white", background="black").place(x=230, y=contador)
+        #for i in content :
+         #   for j in i:
+          #      contador+=30
+           #     print(j)
+            #    tk.Button(self.window, text=j, fg="white", background="black").place(x=230, y=contador)
+
+    def searchFile(self):
+        ruta = self.path.get()
+        #print(ruta)
+
+        f= Folder(ruta)
+        content= f.searchContent()
+        contador = 70
+        # print(content)
+        for i in content:
+            print(ruta+'\\'+'\\'+i)
+            rabs= ruta+'\\'+'\\'+i
+            if f.isfile(rabs):
+                tk.Label(self.window, text="Files:", fg="white", background="black").place(x=230, y=60)
+                contador += 30
+                tk.Button(self.window, text=i, fg="white", background="black", command=self.fileOrFolder).place(x=230,y=contador)
+            if f.isFolder(rabs):
+                tk.Label(self.window, text="Folders:", fg="white", background="black").place(x=230, y=contador+30)
+                contador += 60
+                tk.Button(self.window, text=i, fg="white", background="black", command=self.fileOrFolder).place(x=230,y=contador)
+
+    def fileOrFolder(self):
+        pass
 
     def turn_back(self):
         self.fondo.destroy()

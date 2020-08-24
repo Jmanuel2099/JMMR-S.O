@@ -13,15 +13,19 @@ class Folder:
         #ruta = r'C:\Users\jmanu\Documents\Universidad\Sistemas Operativos'
         ruta= self.path
         contenido = os.listdir(ruta)
+        return contenido
 
-        # Archivos
-        files = [nombre for nombre in contenido if isfile(join(ruta, nombre))]
-        #print('Archivos')
-        #print(files)
+    def isfile(self,ruta):
+        return os.path.isfile(ruta)
 
-        # Carpetas
-        folders = [nombre for nombre in contenido if isdir(join(ruta, nombre))]
-        #print('Carpetas')
-        #print(folders)
+    def isFolder(self,ruta):
+        return os.path.isdir(ruta)
 
-        return [files,folders]
+    def getFies(self):
+        c= self.searchContent()
+        files = [nombre for nombre in c if isfile(join(self.path, nombre))]
+        return files
+    def getFolders(self):
+        c = self.searchContent()
+        folders = [nombre for nombre in c if isdir(join(self.path, nombre))]
+        return folders
