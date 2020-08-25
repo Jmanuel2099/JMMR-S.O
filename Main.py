@@ -20,8 +20,11 @@ if __name__ == '__main__':
     #print(len(files))
 
     #a= os.listdir('C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos')
-    a= os.path.isfile('C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos\\S.O')
-    print(a)
+    #a= os.path.isfile('C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos\\i')
+    #a = os.path.isfile('C:\\Users\\jmanu\\Documents\\Universidad\\certificado JOSE MANUEL MARIN RAMIREZ.pdf')
+    #print(a)
+
+    #os.system('notepad.exe')
 
     Window = Tk()
     sysOperative = firstWindow(Window)

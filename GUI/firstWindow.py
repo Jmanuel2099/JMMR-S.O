@@ -15,7 +15,7 @@ class firstWindow:
         self.window = window
         self.window.resizable(0,0)
         self.window.title("JMMR")
-        self.window.geometry('1000x600')
+        self.window.geometry('1000x600+30+30')
         self.fondo = None
         self.img ="GUI/Images/Logo.png"
         
@@ -175,67 +175,44 @@ class firstWindow:
         btndelete.grid(row=3, column=2)
 
     def makeFileSystem(self):
-        #windowFile = tk.Toplevel(self.window)
-        #windowFile.geometry('700x600')
-        #windowFile.title('Users')
+        self.windowFile = tk.Toplevel(self.window)
+        self.windowFile.geometry('800x500+180+90')
+        self.windowFile.title('File System')
 
-        #self.path = StringVar()
-        #lbPath = tk.Label(windowFile, text="Enter Path: ")
-        #lbPath.grid(row=2, column=2)
-        #self.pathSearch = tk.Entry(windowFile, textvariable=self.path, width=80)
-        #self.pathSearch.grid(row=2, column=3)
-        #btnFileManager = tk.Button(windowFile, text="Search file", command=self.searchFile)
-        #btnFileManager.config(width=10)
-        #btnFileManager.grid(row=2, column=4)
-
-        #print(self.searchFile)
         self.path = StringVar()
-        lbPath = tk.Label(self.window, text="Enter Path: ", fg="white", background="black")
-        lbPath.place(x=120, y=30)
-        self.pathSearch = tk.Entry(self.window, textvariable=self.path, width=80)
-        self.pathSearch.place(x=200, y=30)
-        btnFileManager = tk.Button(self.window, text="Search file", command=self.searchFile)
+        lbPath = tk.Label(self.windowFile, text="Enter Path: ")
+        lbPath.grid(row=2, column=2)
+        self.pathSearch = tk.Entry(self.windowFile, textvariable=self.path, width=60)
+        self.pathSearch.grid(row=2, column=3)
+        btnFileManager = tk.Button(self.windowFile, text="Search file", command=self.getPath)
         btnFileManager.config(width=10)
-        btnFileManager.place(x=710, y=30)
+        btnFileManager.grid(row=2, column=4)
 
-
-
-
-
-        #tk.Label(self.window, text="File System:", fg="white", background="black").place(x=230, y=30)
-        #ruta = r'C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos'
-        #f = Folder(ruta)
-        #content = f.searchContent()
-        #contador= 30
-        #print(content)
-        #for i in content :
-         #   for j in i:
-          #      contador+=30
-           #     print(j)
-            #    tk.Button(self.window, text=j, fg="white", background="black").place(x=230, y=contador)
-
-    def searchFile(self):
+    def getPath(self):
+        #C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos
         ruta = self.path.get()
+        self.searchFile(ruta)
+
+
+    def searchFile(self,ruta):
         #print(ruta)
-
+        #lffile=LabelFrame(self.windowFile, text='File System', padx=10, pady=10)
+        #lffile.place(x=20,y=30)
         f= Folder(ruta)
-        content= f.searchContent()
-        contador = 70
-        # print(content)
-        for i in content:
-            print(ruta+'\\'+'\\'+i)
-            rabs= ruta+'\\'+'\\'+i
-            if f.isfile(rabs):
-                tk.Label(self.window, text="Files:", fg="white", background="black").place(x=230, y=60)
-                contador += 30
-                tk.Button(self.window, text=i, fg="white", background="black", command=self.fileOrFolder).place(x=230,y=contador)
-            if f.isFolder(rabs):
-                tk.Label(self.window, text="Folders:", fg="white", background="black").place(x=230, y=contador+30)
-                contador += 60
-                tk.Button(self.window, text=i, fg="white", background="black", command=self.fileOrFolder).place(x=230,y=contador)
+        pos=0
+        contador = 30
+        listrutaabs = []
+        for i in f.searchContent():
+            listrutaabs.append(ruta+'\\'+'\\'+i)
+            contador += 30
+            pos += 1
+            tk.Button(self.windowFile, text=i,command=lambda u=listrutaabs[pos - 1]: self.openFolder(u)).place(x=20,y=contador)
 
-    def fileOrFolder(self):
-        pass
+    def openFolder(self,ruta):
+        self.windowFile.destroy()
+        self.makeFileSystem()
+        self.searchFile(ruta)
+
 
     def turn_back(self):
         self.fondo.destroy()
