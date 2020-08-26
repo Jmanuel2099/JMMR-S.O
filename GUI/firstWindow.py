@@ -71,7 +71,7 @@ class firstWindow:
         self.entryusernamen.place(x=430, y=380)
         self.lbPass = tk.Label(self.window, text="Pass: ", fg="white", background="black")
         self.lbPass.place(x=390, y=410)
-        self.entrypass = tk.Entry(self.window, textvariable=self.Pass, width=25)
+        self.entrypass = tk.Entry(self.window, textvariable=self.Pass, width=25,show="*")
         self.entrypass.place(x=430, y=410)
 
         self.btnLogin = tk.Button(self.window, text=" Login ", command= self.makeLogin)
@@ -107,7 +107,7 @@ class firstWindow:
         self.fondo = tk.Label(self.window, image=imgFondo)
         self.fondo.pack(side='top', fill='both', expand='yes')
 
-        btnFileManager = tk.Button(self.window, text="Search file", command=self.makeFileSystem)
+        btnFileManager = tk.Button(self.window, text="File Browser", command=self.makeDirectory)
         btnFileManager.config(width=10)
         btnFileManager.place(x=20, y=30)
 
@@ -133,7 +133,7 @@ class firstWindow:
         btnUsers = tk.Button(self.window, text= "Users", command= self.windowUsers)
         btnUsers.config(width=10)
         btnUsers.place(x=15, y=15)
-        btnFileManager= tk.Button(self.window, text="FIle Manager", command=self.makeFileSystem)
+        btnFileManager= tk.Button(self.window, text="File Browser", command=self.makeDirectory)
         btnFileManager.config(width=10)
         btnFileManager.place(x=15, y=50)
         btnchangeuser = tk.Button(self.window, text= "Change User", command=self.changeUser)
@@ -174,45 +174,59 @@ class firstWindow:
         btndelete.config(width=10)
         btndelete.grid(row=3, column=2)
 
-    def makeFileSystem(self):
+    def makeDirectory(self):
         self.windowFile = tk.Toplevel(self.window)
         self.windowFile.geometry('800x500+180+90')
         self.windowFile.title('File System')
+        self.windowFile.configure(background='gray10')
 
+        # C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos
         self.path = StringVar()
-        lbPath = tk.Label(self.windowFile, text="Enter Path: ")
+        self.path.set("C:\\Users\\jmanu\\Documents")
+        lbPath = tk.Label(self.windowFile, text="Enter Path: ",fg="white", background="gray10")
         lbPath.grid(row=2, column=2)
         self.pathSearch = tk.Entry(self.windowFile, textvariable=self.path, width=60)
         self.pathSearch.grid(row=2, column=3)
-        btnFileManager = tk.Button(self.windowFile, text="Search file", command=self.getPath)
-        btnFileManager.config(width=10)
-        btnFileManager.grid(row=2, column=4)
+        btnFileManager = tk.Button(self.windowFile, text="Search directory", command=self.getPath,fg="white", background="gray10")
+        btnFileManager.config(width=13)
+        btnFileManager.grid(row=2, column=5)
 
     def getPath(self):
-        #C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos
         ruta = self.path.get()
-        self.searchFile(ruta)
+        #print("ruta"+ruta)
+        self.openFolder(ruta)
 
-
-    def searchFile(self,ruta):
-        #print(ruta)
-        #lffile=LabelFrame(self.windowFile, text='File System', padx=10, pady=10)
-        #lffile.place(x=20,y=30)
+    def searchDirectoryNext(self,ruta):
+        #print("rrrr"+ruta)
+        self.path.set(ruta)
+        tk.Label(self.windowFile, text="content: ", fg="white", background="gray10")
         f= Folder(ruta)
         pos=0
         contador = 30
         listrutaabs = []
+        pathback = self.getpathback(ruta)
+        listrutaabs.append(pathback)
         for i in f.searchContent():
-            listrutaabs.append(ruta+'\\'+'\\'+i)
+            listrutaabs.append(ruta+'\\'+i)
             contador += 30
             pos += 1
-            tk.Button(self.windowFile, text=i,command=lambda u=listrutaabs[pos - 1]: self.openFolder(u)).place(x=20,y=contador)
+            tk.Button(self.windowFile, text=i,fg="white", background="black",
+                      command=lambda u=listrutaabs[pos]: self.openFolder(u)).place(x=20,y=contador)
+
+        tk.Button(self.windowFile, text='Back', fg="white", background="black",
+                  command=lambda j= listrutaabs[0]:self.openFolder(j)).place(x=700, y=400)
 
     def openFolder(self,ruta):
         self.windowFile.destroy()
-        self.makeFileSystem()
-        self.searchFile(ruta)
+        self.makeDirectory()
+        self.searchDirectoryNext(ruta)
 
+    def getpathback(self, ruta):
+        pathback=""
+        s = ruta.split("\\")
+        for i in range(len(s) - 1):
+            pathback = pathback + s[i] +"\\"
+        return pathback
 
     def turn_back(self):
         self.fondo.destroy()

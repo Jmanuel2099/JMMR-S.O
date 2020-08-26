@@ -25,6 +25,16 @@ if __name__ == '__main__':
     #print(a)
 
     #os.system('notepad.exe')
+    #ruta ="C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos"
+    #print(ruta.split("\\"))
+    #s=ruta.split("\\")
+    #nueva=""
+    #for i in range(len(s)-1):
+       # print (i)
+      #  nueva= nueva+s[i]+"\\"+"\\"
+     #   print(nueva)
+
+    #print("---"+nueva)
 
     Window = Tk()
     sysOperative = firstWindow(Window)
