@@ -24,7 +24,16 @@ if __name__ == '__main__':
     #a = os.path.isfile('C:\\Users\\jmanu\\Documents\\Universidad\\certificado JOSE MANUEL MARIN RAMIREZ.pdf')
     #print(a)
 
-    #os.system('notepad.exe')
+    #blok de notas
+    #os.system('notepad C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos\\linksMaquinaVirtual.txt')
+    #os.system('notepad C:\\Users\\jmanu\\Documents\\Universidad\\certificado JOSE MANUEL MARIN RAMIREZ.pdf')
+    #paint
+    #os.system('mspaint C:\\Users\\jmanu\\Documents\\20190128_203035.jpg')
+
+    #word
+    #os.system('start WinWord )
+    #Excel
+    #os.system('start Excel.exe')
     #ruta ="C:\\Users\\jmanu\\Documents\\Universidad\\Sistemas Operativos"
     #print(ruta.split("\\"))
     #s=ruta.split("\\")

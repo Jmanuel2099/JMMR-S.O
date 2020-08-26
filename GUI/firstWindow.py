@@ -8,6 +8,8 @@ from tkinter import ttk
 import threading
 from Security.User import User
 from FileSystem.Folder import Folder
+from tkinter import messagebox
+import os
 
 class firstWindow:
 
@@ -92,9 +94,9 @@ class firstWindow:
                 self.makedesktop()
                 print("login succesful")
             else:
-                print("user or password not found")
+                messagebox.showinfo(message="user or password not found", title="ERROR")
         else:
-            print("you must fill all the fields")
+            messagebox.showinfo(message="you must fill all the fields", title="ERROR")
 
     def desktopGuest(self):
         self.fondo.destroy()
@@ -107,13 +109,15 @@ class firstWindow:
         self.fondo = tk.Label(self.window, image=imgFondo)
         self.fondo.pack(side='top', fill='both', expand='yes')
 
+        lbname = tk.Label(self.window, text="Guest ", fg="white", background="black")
+        lbname.place(x=20, y=20)
         btnFileManager = tk.Button(self.window, text="File Browser", command=self.makeDirectory)
         btnFileManager.config(width=10)
-        btnFileManager.place(x=20, y=30)
+        btnFileManager.place(x=20, y=50)
 
         btnchangeuser = tk.Button(self.window, text="Change User", command=self.turn_back)
         btnchangeuser.config(width=10)
-        btnchangeuser.place(x=20, y=70)
+        btnchangeuser.place(x=20, y=90)
         self.fondo.mainloop()
 
     def makedesktop(self):
@@ -217,9 +221,29 @@ class firstWindow:
                   command=lambda j= listrutaabs[0]:self.openFolder(j)).place(x=700, y=400)
 
     def openFolder(self,ruta):
-        self.windowFile.destroy()
-        self.makeDirectory()
-        self.searchDirectoryNext(ruta)
+        print(ruta)
+        d = Folder(ruta)
+        r = d.getPath()
+        if d.isFolder(r):
+            self.windowFile.destroy()
+            self.makeDirectory()
+            self.searchDirectoryNext(ruta)
+        elif d.isfile(r):
+            print(r.split("\\"))
+            s = r.split("\\")
+            a = s[len(s)-1].split(".")
+            ext= a[len(a)-1]
+            print(ext)
+            if ext == "txt":
+                file= "notepad" + " " + ruta
+                os.system(file)
+            if ext == "jpg" or ext=="png":
+                file= "mspaint" + " " + ruta
+                os.system(file)
+        else:
+            messagebox.showinfo(message="file not allowed", title="ERROR")
+
+
 
     def getpathback(self, ruta):
         pathback=""

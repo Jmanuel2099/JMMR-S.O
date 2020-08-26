@@ -1,5 +1,6 @@
 import os
 from os.path import isfile, join, isdir
+from tkinter import messagebox
 
 class Folder:
 
@@ -12,8 +13,13 @@ class Folder:
     def searchContent(self):
         #ruta = r'C:\Users\jmanu\Documents\Universidad\Sistemas Operativos'
         ruta= self.path
-        contenido = os.listdir(ruta)
-        return contenido
+        try:
+            contenido = os.listdir(ruta)
+            return contenido
+        except:
+            messagebox.showinfo(message="Path invalid", title="ERROR")
+            return []
+
 
     def isfile(self,ruta):
         return os.path.isfile(ruta)
