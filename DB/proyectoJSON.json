@@ -1,0 +1,34 @@
+{
+  "User":[
+       {
+	"username":"admin",
+	"password":"12345",
+	"rol":0,
+	"estado":false
+       },
+       {
+	"username":"invited",
+	"password":"67890",
+	"rol":1,
+	"estado":false
+       },
+       {
+	"username":"Jose",
+	"password":"54321",
+	"rol":0,
+	"estado":false
+       },
+       {
+	"username":"Manuel",
+	"password":"09876",
+	"rol":0,
+	"estado":false
+       },
+       {
+	"username":"Martha",
+	"password":"user123",
+	"rol":0,
+	"estado":false
+       }
+  ]	
+}

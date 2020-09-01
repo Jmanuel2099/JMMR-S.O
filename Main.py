@@ -1,4 +1,5 @@
 from GUI.firstWindow import firstWindow
+from DB.LectorJSON import LectorJSON
 import tkinter
 from tkinter import *
 import tkinter as tk
@@ -42,13 +43,11 @@ if __name__ == '__main__':
        # print (i)
       #  nueva= nueva+s[i]+"\\"+"\\"
      #   print(nueva)
-
+    #os.system('internet-Explorer.exe')
     #print("---"+nueva)
 
+    data = LectorJSON()
+    listUser = data.reader()
     Window = Tk()
-    sysOperative = firstWindow(Window)
+    sysOperative = firstWindow(Window, listUser)
     Window.mainloop()
-
-
-
-
